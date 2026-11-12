@@ -1,0 +1,15 @@
+# Defense-in-depth: แม้ upload_helper.php จะ whitelist เฉพาะไฟล์รูปภาพแล้ว
+# ก็ยังปิดการรัน PHP/สคริปต์ใด ๆ ในโฟลเดอร์นี้อีกชั้นหนึ่ง เผื่อกรณี misconfiguration
+<IfModule mod_php7.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php8.c>
+    php_flag engine off
+</IfModule>
+
+<FilesMatch "\.(php|phtml|php\d?|phar|cgi|pl|py|sh)$">
+    Require all denied
+</FilesMatch>
+
+Options -ExecCGI -Indexes
+AddType text/plain .php .phtml .phar
